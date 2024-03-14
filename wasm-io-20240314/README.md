@@ -1,4 +1,24 @@
-## 1 Quickstart!
+## 0 Prerequisites
+
+Install Rust
+
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Install `wasm32-wasi` target.
+
+```
+rustup target add wasm32-wasi
+```
+
+Install WasmEdge + GGML
+
+```
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.13.5  --plugins wasi_nn-ggml wasmedge_rustls
+```
+
+## 1 Quickstart
 
 ```
 bash <(curl -sSfL 'https://raw.githubusercontent.com/LlamaEdge/LlamaEdge/main/run-llm.sh')
