@@ -139,7 +139,14 @@ Who painted it?
 
 https://www.secondstate.io/articles/llava-v1.6-vicuna-7b/
 
+Use this image: https://www.planetware.com/wpimages/2022/02/spain-barcelona-top-attractions-basilica-sagrada-familia.jpg
+
+Ask: 
+* What is in that image?
+* When is it supposed to complete?
+
 ## Integrated RAG example
 
-Coming soon!
+Preview: https://github.com/LlamaEdge/Example-LlamaEdge-RAG/blob/feat-server-multi-models/curl.md
 
+Coming soon!
