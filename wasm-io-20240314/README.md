@@ -145,8 +145,14 @@ Ask:
 * What is in that image?
 * When is it supposed to complete?
 
-## Integrated RAG example
+## 8 Integrated RAG example
 
 Preview: https://github.com/LlamaEdge/Example-LlamaEdge-RAG/blob/feat-server-multi-models/curl.md
 
 Coming soon!
+
+## 9 Fine-tune and RAG
+
+Complete tutorial: https://github.com/YuanTony/chemistry-assistant
+
+
