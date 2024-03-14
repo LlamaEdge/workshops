@@ -155,4 +155,7 @@ Coming soon!
 
 Complete tutorial: https://github.com/YuanTony/chemistry-assistant
 
+## 10 Advanced: Kubernetes!
+
+Preview: https://github.com/second-state/wasmedge-containers-examples/tree/main/k8s_containerd_llama
 
