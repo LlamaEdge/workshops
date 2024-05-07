@@ -51,16 +51,52 @@ scp -i path/to/server.pem llama-api-server.wasm azureuser@ip.addr:/home/azureuse
 Go to that machine
 
 ```
+ssh -i path/to/server.pem azureuser@ip.addr
+cd demo
+```
 
+Start the `wasm` API server in the background.
+
+```
+nohup wasmedge --dir .:. --nn-preload default:GGML:AUTO:Meta-Llama-3-8B-Instruct-Q5_K_M.gguf llama-api-server.wasm --prompt-template llama-3-chat --model-name Meta-Llama-3-8B-Instruct --socket-addr 0.0.0.0:8080 --log-prompts --log-stat &
+```
+
+Test the API!
+
+```
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"user", "content": "Where is Estes Park?"}]}'
+```
+
+Example answer:
+
+```
+{"id":"chatcmpl-8121b961-18b5-4c01-859d-da0621350d36","object":"chat.completion","created":1715091449,"model":"Meta-Llama-3-8B-Instruct","choices":[{"index":0,"message":{"role":"assistant","content":"Estes Park is a town in Colorado, USA. It's located at the entrance of Rocky Mountain National Park."},"finish_reason":"stop"}],"usage":{"prompt_tokens":44,"completion_tokens":25,"total_tokens":69}}
 ```
 
 ## 3 Run an RAG example
 
-```
+Install GaiaNet. You may be prompted for your password on the commnd line.
 
 ```
+curl -sSfL 'https://raw.githubusercontent.com/GaiaNet-AI/gaianet-node/main/install.sh' | bash
+```
 
-Load the browser at http://localhost:8080/ 
+Initialize the node.
+
+```
+gaianet init
+```
+
+Start the node.
+
+```
+gaianet start
+```
+
+Load the browser at http://localhost:8080/
 
 Or, try the API endpoint:
 
@@ -68,7 +104,7 @@ Or, try the API endpoint:
 curl -X POST http://localhost:8080/v1/chat/completions \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "Where is Paris?"}], "model":"Llama-2-7b-chat-hf-Q5_K_M"}'
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "Where is Paris?"}]}'
 ```
 
 Checkout the file `~/gaianet/start-log.txt` to see the prompt supplementation and manipulation.
