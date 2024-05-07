@@ -84,7 +84,7 @@ Install GaiaNet. You may be prompted for your password on the commnd line.
 curl -sSfL 'https://raw.githubusercontent.com/GaiaNet-AI/gaianet-node/main/install.sh' | bash
 ```
 
-Initialize the node.
+Initialize the node. By default, it uses Microsoft's Phi-3 model and a knowledge base about Paris.
 
 ```
 gaianet init
@@ -96,7 +96,7 @@ Start the node.
 gaianet start
 ```
 
-Load the browser at http://localhost:8080/
+Load the browser at the generated public URL (e.g., https://0xba041de0c438ed2b4fc87d6ab39ecf7236dfe865.gaianet.network) or simply at http://localhost:8080/
 
 Or, try the API endpoint:
 
@@ -107,13 +107,52 @@ curl -X POST http://localhost:8080/v1/chat/completions \
   -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "Where is Paris?"}]}'
 ```
 
-Checkout the file `~/gaianet/start-log.txt` to see the prompt supplementation and manipulation.
+Checkout the file `~/gaianet/log/start-llamaedge.log` to see the prompt supplementation and manipulation.
+
+You can stop the GaiaNet node using the following command.
 
 ```
-sh <(curl -sSfL 'https://raw.githubusercontent.com/GaiaNet-AI/gaianet-node/main/demo/stop.sh')
+gaianet stop
 ```
 
-## 4 Get sample source code
+## 4 Change to a different model and knowledge base
+
+We will re-configure the node to use the Llama 3 model and a knowledge base about London!
+
+```
+gaianet config \
+  --chat-url https://huggingface.co/second-state/Llama-3-8B-Instruct-GGUF/resolve/main/Meta-Llama-3-8B-Instruct-Q5_K_M.gguf \
+  --chat-ctx-size 8190 \
+  --prompt-template llama-3-chat \
+  --embedding-url https://huggingface.co/second-state/Nomic-embed-text-v1.5-Embedding-GGUF/resolve/main/nomic-embed-text-v1.5-f16.gguf \
+  --embedding-ctx-size 256 \
+  --snapshot https://huggingface.co/datasets/gaianet/london/resolve/main/london_768_nomic-embed-text-v1.5-f16.snapshot.tar.gz \
+  --qdrant-limit 1
+```
+
+Initialize the node again with new configuration.
+
+```
+gaianet init
+```
+
+Start the node.
+
+```
+gaianet start
+```
+
+Ask a question about London!
+
+```
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the population of London?"}]}'
+```
+
+
+## 5 Get sample source code
 
 ```
 git clone https://github.com/second-state/WasmEdge-WASINN-examples
