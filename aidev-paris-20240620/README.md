@@ -54,7 +54,7 @@ See details: TBD
 
 ## Use Kubernetes to manage your LLM workloads
 
-See details: TBD
+See details: https://github.com/WasmEdge/docs/pull/234
 
 
 
